@@ -10,6 +10,10 @@ const yelp = require("yelp-fusion");
 // const yelpKey = process.env.YELP_API;
 const yelpClient = yelp.client(process.env.YELP_API);
 
+app.use(express.static("public"));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended : false}));
+
 
 
 const searchRequest = {
@@ -27,10 +31,12 @@ yelpClient.search(searchRequest).then(response => {
 
 
 app.get('/', (req, res)=> {
+    res.sendFile(path.join(__dirname, '/index.html'));
 
+});
 
-    res.send("Testing hello!!!!!");
-
+app.get('/layover', (req, res) => {
+    res.render('layover');
 });
 
 
