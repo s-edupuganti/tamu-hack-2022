@@ -1,0 +1,19 @@
+{
+  "name": "tamu-hack-2022",
+  "version": "1.0.0",
+  "description": "Project for TAMU HACK 2022",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
