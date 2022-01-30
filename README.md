@@ -2,21 +2,21 @@
 Project for TAMU HACK 2022
 
 
-POTENTIAL NAMES (trash):\n
-Playover
-LIVEover
-LayoverMatch
-AAover
-WorryOver
-TripOver
-Delayover DeLayover DelayOver
-WaitOver
-EasyOver
-Layover Buddy
-LayBacker
-Layover Collaborator
-FlightBreak
-TravelPause
-Lull Lover
-Auspicious Chasm
-Stratover
+POTENTIAL NAMES (trash):  
+Playover  
+LIVEover  
+LayoverMatch  
+AAover  
+WorryOver  
+TripOver  
+Delayover DeLayover DelayOver  
+WaitOver  
+EasyOver  
+Layover Buddy  
+LayBacker  
+Layover Collaborator  
+FlightBreak  
+TravelPause  
+Lull Lover  
+Auspicious Chasm  
+Stratover  
