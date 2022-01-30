@@ -58,24 +58,28 @@ var departureTime;
 var startDate;
 var endDate;
 var airportCode;
+var mun;
+var country;
+var dict = {};
+// let finalLocation;
 
 
 // pool.query(`SELECT * FROM country_code LIMIT 2`, (err, res)=> {
 //     return console.log(res);
 // })
 
-const searchRequest = {
-    term: 'Tourist Attractions',
-    location: 'London, UK'
-};
+// const searchRequest = {
+//     term: 'Tourist Attractions',
+//     location: 'London, UK'
+// };
 
-yelpClient.search(searchRequest).then(response => {
-    const firstResult = response.jsonBody.businesses[2];
-    const prettyJson = JSON.stringify(firstResult, null, 4);
-    console.log(prettyJson);
-  }).catch(e => {
-    console.log(e);
-  });
+// yelpClient.search(searchRequest).then(response => {
+//     const firstResult = response.jsonBody.businesses[2];
+//     const prettyJson = JSON.stringify(firstResult, null, 4);
+//     console.log(prettyJson);
+//   }).catch(e => {
+//     console.log(e);
+//   });
 
 
 app.get('/', (req, res)=> {
@@ -110,30 +114,70 @@ app.post('/layover', (req, res) => {
         pgClient.end;
     });
 
-    // var test = 'pt'
 
-    // console.log(arrivalTime);
+    pgClient.query('SELECT municipality, iso_country FROM airport_code WHERE airport_code.iata_code = $1',[airportCode], (err, res)=>{
+        if (!err) {
+            // console.log(res.rows[0].municipality);
+            mun = res.rows[0].municipality;
+            country = res.rows[0].iso_country;
 
-    // pool.query(`SELECT language FROM lang_code WHERE iso = 'pt'`, (err, results) => {
-    //     if (err) {
-    //         throw err;
-    //     }
+            console.log('Mun: ' + mun);
+            console.log('Country: ' + country);
 
-    //     console.log(results.rows);
-    // });
+            // finalLocation = '${mun}, ${country}'
+            let finalLocation = mun + ',' + country;
 
-    // try {
-    //     const res = await pool.query("SELECT language from lang_code INNER JOIN (SELECT primary_language from country_code INNER JOIN airport_code ON country_code.country_iso = airport_code.iso_country WHERE airport_code.iata_code = 'DFW') AS alias ON lang_code.iso LIKE alias.primary_language");
-    //     console.log(res.rows);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
 
-    // pool.query(`SELECT language from lang_code INNER JOIN (SELECT primary_language from country_code INNER JOIN airport_code ON country_code.country_iso = airport_code.iso_country WHERE airport_code.iata_code = '$1') AS alias ON lang_code.iso LIKE alias.primary_language`, [airportCode], (results) => {
-    //     console.log(results.rows);
-    // });
+            // finalLocation = ("'" + mun + ',' + country + "'");
 
-    // console.log(req.body.arrivalTime);
+            console.log(finalLocation);
+
+                const searchRequest = {
+                    term: 'Tourist Attractions',
+                    // location: mun + ',' + country
+                    // location: '\'' + mun + ',' + country + '\''
+                    location: finalLocation
+                };
+            
+                // console.log('Location:' + location);
+                
+                yelpClient.search(searchRequest).then(response => {
+            
+                    for (let i = 0;  i < 10; i++) {
+                        dict[response.jsonBody.businesses[i].name] = [response.jsonBody.businesses[i].price, response.jsonBody.businesses[i].categories[0].title, response.jsonBody.businesses[i].coordinates.longitude, response.jsonBody.businesses[i].coordinates.latitude];
+
+                        console.log('Name: ' + response.jsonBody.businesses[i].name +'; Price: ' + dict[response.jsonBody.businesses[i].name][0] + '; Category: ' + dict[response.jsonBody.businesses[i].name][1] + '; Longitude: ' + dict[response.jsonBody.businesses[i].name][2] + '; Latitude: ' + dict[response.jsonBody.businesses[i].name][3]);
+                        // console.log('Hey' + i);
+                        // console.log(response.jsonBody.businesses[i].name);
+                        // dict.push({
+                        //     key: response.jsonBody.businesses[i].name,
+                        //     value: ["0", "1", "2"]
+                        // });
+
+                        // console.log(di
+                    }
+
+                    // console.log(dict)
+            
+                    // const firstResult = response.jsonBody.businesses[2].name;
+                    // const prettyJson = JSON.stringify(firstResult, null, 4);
+                    // console.log(prettyJson);
+                }).catch(e => {
+                    console.log(e);
+                });
+
+
+            // municpality = res.rows[0].municipality
+
+        } else {
+            console.log(err.message);
+        }
+        pgClient.end;
+    });
+
+
+
+
 });
 
 

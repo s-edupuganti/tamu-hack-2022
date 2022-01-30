@@ -1,0 +1,23 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(-90deg, #a77fce, #6a7ee0);
+    overflow: hidden; /* Hide scrollbars */
+    margin: 0;
+  }
+
+/* .topnav {
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .topnav a {
+    float: left;
+    color: #6a7ee0;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  } */
