@@ -2,7 +2,7 @@ require('dotenv').config();
 const { response } = require('express');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT|| 4000;
+const PORT = process.env.PORT|| 5000;
 const yelp = require("yelp-fusion");
 const yelpClient = yelp.client(process.env.YELP_API);
 
@@ -190,38 +190,21 @@ app.post('/layover', (req, res) => {
 
                 const searchRequest = {
                     term: 'Tourist Attractions',
-                    // location: mun + ',' + country
-                    // location: '\'' + mun + ',' + country + '\''
                     location: finalLocation
                 };
-            
-                // console.log('Location:' + location);
-                
+        
                 yelpClient.search(searchRequest).then(response => {
-
-                    
-
-                    
             
                     for (let i = 0;  i < 10; i++) {
                         dict[response.jsonBody.businesses[i].name] = [response.jsonBody.businesses[i].price, response.jsonBody.businesses[i].categories[0].title, response.jsonBody.businesses[i].coordinates.latitude, response.jsonBody.businesses[i].coordinates.longitude];
 
                         console.log('Name: ' + response.jsonBody.businesses[i].name +'; Price: ' + dict[response.jsonBody.businesses[i].name][0] + '; Category: ' + dict[response.jsonBody.businesses[i].name][1] +  '; Latitude: ' + dict[response.jsonBody.businesses[i].name][2] + '; Longitude: ' + dict[response.jsonBody.businesses[i].name][3]);
-                        // console.log('Hey' + i);
-                        // console.log(response.jsonBody.businesses[i].name);
-                        // dict.push({
-                        //     key: response.jsonBody.businesses[i].name,
-                        //     value: ["0", "1", "2"]
-                        // });
-
+        
                         let longLat = dict[response.jsonBody.businesses[i].name][2] + ',' + dict[response.jsonBody.businesses[i].name][3];
-                        // console.log(longLat);
-                        // console.log(typeof(longLat));
+                  ;
                         origins.push(longLat);
                         destinations.push(longLat);
 
-
-                        // console.log(di
                     }
 
                     // origins.push(coords);

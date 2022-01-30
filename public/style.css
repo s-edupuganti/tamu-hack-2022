@@ -8,6 +8,14 @@ body{
     margin: 0;
   }
 
+
+div{
+  /* margin: 10%; */
+  background-color: white;
+  box-shadow: 2px 2px;
+  position: relative;
+}
+
 /* .topnav {
     overflow: hidden;
     background-color: white;
